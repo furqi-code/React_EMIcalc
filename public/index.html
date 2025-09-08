@@ -11,21 +11,29 @@
       crossorigin="anonymous"
     />
     <style>
+      body {
+        background: linear-gradient(to left, #5d9d3b, #e4e4d9);
+        min-height: 100vh;
+      }
       .box {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
       }
-      body {
-        background: linear-gradient(to left, #5d9d3b , #e4e4d9);
-        min-height: 100vh;
+      .results-container {
+        width: 100%;
+        max-width: 425px;
+        margin-top: 1rem;
+        padding: 0rem 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       }
       .emi-item {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 20px 0;
+        padding: 17px 0;
         border-bottom: 1px solid #e2e8f0;
       }
 
@@ -58,11 +66,9 @@
       .emi-principal {
         color: black;
       }
-      
     </style>
   </head>
   <body>
-
     <div id="root">Root element</div>
     <script src="../src/index.js" type="javascript/jsx"></script>
   </body>

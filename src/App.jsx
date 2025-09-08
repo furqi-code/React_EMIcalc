@@ -23,11 +23,11 @@ export function App() {
   return (
     <>
       <Header></Header>
-      <div className="container my-2 box">
+      <div className="container box">
         <div>
           <Input cost={calculate}></Input>
         </div>
-        <div>
+        <div className="results-container">
           <Results
             principle={bill.P}
             emi={bill.monthlyEMI}
