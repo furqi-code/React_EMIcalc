@@ -1,42 +1,43 @@
 import { Header } from "./components/header.jsx";
 import { Input } from "./components/inputs.jsx";
 import { Results } from "./components/results.jsx";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export function App() {
+  const loanAmountRef = useRef();
+  const rateOfInterestRef = useRef();
+  const loanTenureRef = useRef();
+
   let initialValues = {
-    loanAmount: 0,
-    Rate_of_interest: 0,
-    loanTenure: 0, // years
     principle: 0,
     monthlyEMI: 0,
     totalInterest: 0,
     totalAmount: 0,
   };
-  const [emi, setEMI] = useState(initialValues);
+  const [bill, setBill] = useState(initialValues);
 
-  const updateInput = (property, value) => {
-    setEMI({
-      ...emi,
-      [property]: value,
-    });
+  const resetInputFields = () => {
+    setBill(initialValues) ;
+    loanAmountRef.current.value = "" ;
+    rateOfInterestRef.current.value = "" ; 
+    loanTenureRef.current.value = "" ;
   };
 
   let handleCompute = () => {
-    if (emi.loanAmount < 100000) {
+    if (loanAmountRef.current.value < 100000) {
       alert("Loan Amount must be 1 Lakh atleast");
-      setEMI(initialValues);
+      resetInputFields();
       return;
     }
-    if (emi.Rate_of_interest > 30 || emi.loanTenure > 30) {
+    if (rateOfInterestRef.current.value > 30 || loanTenureRef.current.value > 30) {
       alert("Rate of interest / Loan Tenure shouldn't be more than 30");
-      setEMI(initialValues);
+      resetInputFields();
       return;
     }
 
-    let P = emi.loanAmount;
-    let R = emi.Rate_of_interest / 12 / 100;
-    let N = emi.loanTenure * 12;
+    let P = loanAmountRef.current.value;
+    let R = rateOfInterestRef.current.value / 12 / 100;
+    let N = loanTenureRef.current.value * 12;
     let monthlyEMI = 0 ;
     if (R === 0) monthlyEMI = Math.round(P / N);
     else
@@ -45,8 +46,7 @@ export function App() {
     let totalAmount = monthlyEMI * N;
     console.log(P, R, N);
     console.log(` EMI - ${monthlyEMI} \n interest - ${totalInterest} \n Total - ${totalAmount}`);
-    setEMI({
-      ...emi, // Keeping the current three input value
+    setBill({
       principle: P,
       monthlyEMI: monthlyEMI,
       totalInterest: totalInterest,
@@ -61,20 +61,20 @@ export function App() {
         <div>
           <Input
             cost={handleCompute}
-            updateInput={updateInput}
-            loanAmount={emi.loanAmount}
-            Rate_of_interest={emi.Rate_of_interest}
-            loanTenure={emi.loanTenure}
+            loanAmountRef={loanAmountRef}
+            rateOfInterestRef={rateOfInterestRef}
+            loanTenureRef={loanTenureRef}
           ></Input>
         </div>
+        {bill.monthlyEMI > 0 &&
         <div className="results-container">
           <Results
-            principle={emi.principle}
-            emi={emi.monthlyEMI}
-            interest={emi.totalInterest}
-            amount={emi.totalAmount}
+            principle={bill.principle}
+            emi={bill.monthlyEMI}
+            interest={bill.totalInterest}
+            amount={bill.totalAmount}
           ></Results>
-        </div>
+        </div>}
       </div>
     </>
   );

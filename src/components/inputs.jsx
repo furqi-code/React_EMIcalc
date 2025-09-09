@@ -1,4 +1,9 @@
-export function Input({ loanAmount, Rate_of_interest, loanTenure, cost, updateInput }) {
+export function Input({
+  loanAmountRef,
+  rateOfInterestRef,
+  loanTenureRef,
+  cost
+}) {
   return (
     <>
       <form>
@@ -14,10 +19,7 @@ export function Input({ loanAmount, Rate_of_interest, loanTenure, cost, updateIn
               aria-label="number"
               id="loanAmount"
               name="loanAmount"
-              value={loanAmount}
-              onChange={(event) =>
-                updateInput("loanAmount", event.target.value)
-              }
+              ref={loanAmountRef}
             />
           </div>
           <div className="p-2">
@@ -31,10 +33,7 @@ export function Input({ loanAmount, Rate_of_interest, loanTenure, cost, updateIn
               aria-label="number"
               id="roi"
               name="roi"
-              value={Rate_of_interest}
-              onChange={(event) =>
-                updateInput("Rate_of_interest", event.target.value)
-              }
+              ref={rateOfInterestRef}
             />
           </div>
           <div className="p-2">
@@ -48,10 +47,7 @@ export function Input({ loanAmount, Rate_of_interest, loanTenure, cost, updateIn
               aria-label="number"
               id="loanTenure"
               name="loanTenure"
-              value={loanTenure}
-              onChange={(event) =>
-                updateInput("loanTenure", event.target.value)
-              }
+              ref={loanTenureRef}
             />
           </div>
           <div className="p-2 text-endd">
